@@ -6,6 +6,7 @@ usando un LLM (OpenAI gpt-4o-mini).
 Equivalente en script al notebook clase7.ipynb.
 """
 import os
+import sys
 
 import dotenv
 from azure.core.credentials import AzureKeyCredential
@@ -181,7 +182,14 @@ def main():
     upload_documents(search_client, documents)
 
     openai_client = OpenAI(api_key=OPENAI_API_KEY)
-    question = "What is included in my Northwind Health Plus plan that is not in standard?"
+
+    # La pregunta se puede pasar como argumento: python rag_pipeline.py "tu pregunta"
+    # Si no se pasa ningún argumento, se pide de forma interactiva.
+    if len(sys.argv) > 1:
+        question = " ".join(sys.argv[1:])
+    else:
+        question = input("Escribí tu pregunta sobre los documentos: ")
+
     answer, results = ask(model, search_client, openai_client, question)
 
     print("\nPregunta:", question)
