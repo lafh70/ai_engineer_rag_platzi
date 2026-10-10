@@ -1,0 +1,6 @@
+clase7.ipynb
+venv/
+downloaded_pdfs/
+__pycache__/
+*.pyc
+.env
